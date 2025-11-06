@@ -47,7 +47,7 @@ pipeline {
                 // -e: Set environment variables for Spring Boot
                 // host.docker.internal: The magic DNS for connecting to your Mac's localhost
                 sh '''
-                    docker run -d --name showtime-container -p 8080:8080 \
+                    /opt/homebrew/bin/docker run -d --name showtime-container -p 8080:8080 \
                     -e SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/showtime \
                     -e SPRING_DATASOURCE_USERNAME=postgres \
                     -e SPRING_DATASOURCE_PASSWORD=postgres \
