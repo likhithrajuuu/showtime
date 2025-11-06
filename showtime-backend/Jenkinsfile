@@ -28,7 +28,7 @@ pipeline {
                 // -f points to your Dockerfile's location
                 // -t gives the image a name (tag)
                 // . is the build context (your entire project directory)
-                sh '/opt/homebrew/bin/docker build -f showtime-backend/Dockerfile -t showtime-app:latest .'
+                sh '/opt/homebrew/bin/docker build -f Dockerfile -t showtime-app:latest .'
             }
         }
 
