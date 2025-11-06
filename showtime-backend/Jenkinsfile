@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 // This will be configured in the Jenkins job to point to your Git repo
-                git credentialsId: 'your-git-credentials-id', url: 'https://github.com/your-username/your-repo.git'
+                git credentialsId: 'likhithrajuuu', url: 'https://github.com/likhithrajuuu/showtime.git'
             }
         }
 
