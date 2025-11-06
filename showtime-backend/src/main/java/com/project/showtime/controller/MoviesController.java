@@ -9,9 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +25,27 @@ public class MoviesController {
     public ResponseEntity<?> getAllMovies(){
         try{
             List<MoviesModel> movies = moviesService.getAllMovies();
+            log.info("Successfully retrieved " + movies.size() + " movies");
             return ResponseEntity.status(HttpStatus.OK).body(movies);
+        }catch(CrudOperationException e){
+            log.info("Exception while getting all movies: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        catch(CrudValidationException e){
+            log.info("Exception while getting all movies: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        catch(Exception e){
+            log.info("Exception while getting all movies: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<?> addMovie(@RequestBody MoviesModel movie){
+        try{
+            MoviesModel newMovie = moviesService.addMovie(movie);
+            return ResponseEntity.status(HttpStatus.OK).body(newMovie);
         }catch(CrudOperationException e){
             log.info("Exception while getting all movies: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

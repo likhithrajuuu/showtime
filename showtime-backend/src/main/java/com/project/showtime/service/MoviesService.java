@@ -65,4 +65,10 @@ public class MoviesService {
             throw CrudOperationException.asFailedGetOperation(MoviesModel.class, e);
         }
     }
+
+    public MoviesModel addMovie(MoviesModel movie) throws CrudOperationException{
+        checkForNull(movie);
+        validate(movie);
+        return saveMovie(movie);
+    }
 }
