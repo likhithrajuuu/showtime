@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import jakarta.validation.Validator;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -57,5 +58,11 @@ public class MoviesService {
         }
     }
 
-
+    public List<MoviesModel> getAllMovies() throws CrudOperationException{
+        try{
+            return moviesRepository.findAll();
+        }catch (Exception e) {
+            throw CrudOperationException.asFailedGetOperation(MoviesModel.class, e);
+        }
+    }
 }

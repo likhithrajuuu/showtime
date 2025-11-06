@@ -15,3 +15,5 @@ CREATE TABLE showtime.reviews (review_id SERIAL PRIMARY KEY, movie_id INT REFERE
 CREATE TABLE showtime.users (user_id SERIAL PRIMARY KEY, name VARCHAR(255), email VARCHAR(255) UNIQUE, password VARCHAR(255), phone VARCHAR(20), is_active BOOLEAN DEFAULT TRUE, created_at TIMESTAMP DEFAULT NOW(), updated_at TIMESTAMP DEFAULT NOW());
 CREATE TABLE showtime.bookings (booking_id SERIAL PRIMARY KEY, user_id INT REFERENCES showtime.users(user_id), show_id INT REFERENCES showtime.shows(show_id), booking_time TIMESTAMP DEFAULT NOW(), total_amount DECIMAL(10,2), status VARCHAR(20));
 CREATE TABLE showtime.booked_seats (booking_seat_id SERIAL PRIMARY KEY, booking_id INT REFERENCES showtime.bookings(booking_id) ON DELETE CASCADE, seat_layout_id INT REFERENCES showtime.seat_layout(seat_layout_id));
+
+-- Insertion commands
