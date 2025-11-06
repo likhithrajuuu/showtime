@@ -1,37 +1,28 @@
 pipeline {
-    agent any // This tells Jenkins to run the job on any available machine
+    agent any // Runs on your Mac
 
     tools {
-        // This assumes you have JDK 17 and Maven configured
-        // in Jenkins under "Manage Jenkins" > "Global Tool Configuration"
         jdk 'JDK 17'
         maven 'Maven 3.8'
     }
 
     stages {
-        stage('Checkout Code') {
-            steps {
-                // This will be configured in the Jenkins job to point to your Git repo
-                git credentialsId: 'likhithrajuuu', url: 'https://github.com/likhithrajuuu/showtime.git'
-            }
-        }
+        // --- DELETE THE OLD "Checkout Code" STAGE ---
+        // Jenkins already checked out the code by this point.
 
         stage('Build') {
             steps {
                 echo 'Building the Spring Boot application...'
-
-                // Run the Maven command to build the .jar file
-                // On a Mac, you use sh (shell)
-                sh 'mvn clean package -DskipTests'
+                // We must tell Maven where the pom.xml is, since it's in a subdirectory
+                sh 'mvn -f showtime-backend/pom.xml clean package -DskipTests'
             }
         }
 
         stage('Archive Artifacts') {
             steps {
                 echo 'Archiving the .jar file...'
-
-                // This saves the built .jar file inside Jenkins
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                // The .jar file is inside the showtime-backend/target folder
+                archiveArtifacts artifacts: 'showtime-backend/target/*.jar', fingerprint: true
             }
         }
     }
