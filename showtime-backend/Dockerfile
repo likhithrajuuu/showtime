@@ -1,6 +1,6 @@
 # 1. Use the SAME Java version as your pom.xml (Java 17)
 #    We use 'alpine' to keep the image small
-FROM openjdk:17-jdk-alpine
+FROM openjdk:17-jdk
 
 WORKDIR /app
 
