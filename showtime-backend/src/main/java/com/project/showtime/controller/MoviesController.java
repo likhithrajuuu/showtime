@@ -60,5 +60,23 @@ public class MoviesController {
         }
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<?> getMovieById(@PathVariable Long id){
+        try{
+            MoviesModel movie = moviesService.getMovieById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(movie);
+        }catch(CrudOperationException e){
+            log.info("Exception while getting movie by id: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        catch(CrudValidationException e){
+            log.info("Exception while getting movie by id: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        catch(Exception e){
+            log.info("Exception while getting movie by id: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
 
 }

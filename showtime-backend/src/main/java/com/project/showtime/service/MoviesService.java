@@ -71,4 +71,14 @@ public class MoviesService {
         validate(movie);
         return saveMovie(movie);
     }
+
+    public MoviesModel getMovieById(Long id) throws CrudOperationException{
+        checkId(id);
+        MoviesModel movie = moviesRepository.findById(id).orElse(null);
+        if(movie == null){
+            log.info("Could not find MoviesModel with ID: " + id);
+            throw CrudValidationException.asMissingEntity(MoviesModel.class, id);
+        }
+        return movie;
+    }
 }
