@@ -1,5 +1,6 @@
 # Use the standard Eclipse Temurin (OpenJDK) 17 image
-FROM eclipse-temurin:17-jdk-slim
+FROM openjdk:17-jdk-alpine
+
 
 WORKDIR /app
 
