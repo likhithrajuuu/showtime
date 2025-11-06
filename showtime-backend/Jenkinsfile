@@ -37,7 +37,7 @@ pipeline {
             steps {
                 echo 'Stopping and removing old container...'
                 // '|| true' ensures the build doesn't fail if the container doesn't exist
-                sh 'docker stop showtime-container && docker rm showtime-container || true'
+                sh '/opt/homebrew/bin/docker stop showtime-container && /opt/homebrew/bin/docker rm showtime-container || true'
 
                 echo 'Starting new container...'
                 // This is the key command:
