@@ -124,7 +124,7 @@ export const Navbar = () => {
 
                 {/* Bottom Nav Links */}
                 <div className="hidden md:flex justify-between items-center bg-gray-50 px-10 py-2 text-sm text-gray-700">
-                    <div className="flex gap-8">
+                    <div className="flex gap-6">
                         <a href="#" className="hover:text-red-500">Movies</a>
                         <a href="#" className="hover:text-red-500">Music Shows</a>
                         <a href="#" className="hover:text-red-500">Sports</a>
@@ -132,7 +132,7 @@ export const Navbar = () => {
                         <a href="#" className="hover:text-red-500">Standup</a>
                         <a href="#" className="hover:text-red-500">Activities</a>
                     </div>
-                    <div className="flex gap-8">
+                    <div className="flex gap-6">
                         <a href="#" className="hover:text-red-500">ListYourShow</a>
                         <a href="#" className="hover:text-red-500">Corporates</a>
                         <a href="#" className="hover:text-red-500">Offers</a>
