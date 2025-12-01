@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, Search, MapPin, Sun, Moon } from "lucide-react";
-import { CityDialog } from "./CityDialog";
+// Removed import for CityDialog as it's now in App.js
 
-export const Navbar = ({ isDarkMode, toggleTheme }) => {
+export const Navbar = ({ isDarkMode, toggleTheme, setSelectedCity, selectedCity, setCityDialogOpen }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [cityDialogOpen, setCityDialogOpen] = useState(false);
-    const [selectedCity, setSelectedCity] = useState("");
+    // Removed local state for cityDialogOpen and selectedCity
+    // const [cityDialogOpen, setCityDialogOpen] = useState(false);
+    // const [selectedCity, setSelectedCity] = useState("");
     const [detecting, setDetecting] = useState(false);
 
     const detectCity = async () => {
@@ -51,8 +52,9 @@ export const Navbar = ({ isDarkMode, toggleTheme }) => {
     };
 
     useEffect(() => {
+        // setSelectedCity is no longer a local state setter, but a prop
         detectCity();
-    }, []);
+    }, [setSelectedCity, setCityDialogOpen]); // Added setCityDialogOpen to dependency array
 
     return (
         <>
@@ -192,15 +194,7 @@ export const Navbar = ({ isDarkMode, toggleTheme }) => {
                     </div>
                 </div>
             </nav>
-
-            <CityDialog
-                isOpen={cityDialogOpen}
-                onClose={() => setCityDialogOpen(false)}
-                onSelect={(city) => {
-                    setSelectedCity(city);
-                    setCityDialogOpen(false);
-                }}
-            />
+            {/* Removed CityDialog from Navbar.js */}
         </>
     );
 };
