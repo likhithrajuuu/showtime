@@ -1,21 +1,33 @@
 import { useState } from "react";
-import { MapPin, Building2, Landmark, Cloud, Trees, Crosshair } from "lucide-react";
+import { MapPin, Building2, Landmark, Cloud, Trees, Crosshair, Search } from "lucide-react";
 
 export const CityDialog = ({ isOpen, onClose, onSelect }) => {
     const [detecting, setDetecting] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     if (!isOpen) return null;
 
-    const cities = [
+    const topCities = [
         { name: "Mumbai", icon: <Building2 className="w-8 h-8 text-gray-600" /> },
         { name: "Delhi", icon: <Landmark className="w-8 h-8 text-gray-600" /> },
         { name: "Bengaluru", icon: <Cloud className="w-8 h-8 text-gray-600" /> },
         { name: "Chennai", icon: <Trees className="w-8 h-8 text-gray-600" /> },
-        { name: "Kolkata", icon: <Building2 className="w-8 h-8 text-gray-600" /> },
         { name: "Hyderabad", icon: <Landmark className="w-8 h-8 text-gray-600" /> },
+    ];
+
+    const allCities = [
+        ...topCities,
+        { name: "Kolkata", icon: <Building2 className="w-8 h-8 text-gray-600" /> },
         { name: "Pune", icon: <Cloud className="w-8 h-8 text-gray-600" /> },
         { name: "Ahmedabad", icon: <Building2 className="w-8 h-8 text-gray-600" /> },
+        { name: "Jaipur", icon: <Landmark className="w-8 h-8 text-gray-600" /> },
     ];
+
+    const filteredCities = (searchTerm === '')
+        ? topCities
+        : allCities.filter(city =>
+            city.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
 
     const detectLocation = async () => {
         if (!navigator.geolocation) {
@@ -58,8 +70,14 @@ export const CityDialog = ({ isOpen, onClose, onSelect }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 backdrop-blur-sm">
-            <div className="bg-white rounded-2xl shadow-xl w-11/12 max-w-lg p-6 relative">
+        <div
+            className="fixed inset-0 bg-black/40 flex justify-center items-center z-50 backdrop-blur-sm"
+            onClick={onClose} // Close dialog when clicking on the overlay
+        >
+            <div
+                className="bg-white rounded-2xl shadow-xl w-11/12 max-w-lg p-6 relative"
+                onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the dialog
+            >
                 <button
                     onClick={onClose}
                     className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
@@ -72,6 +90,17 @@ export const CityDialog = ({ isOpen, onClose, onSelect }) => {
                     <h2 className="text-xl font-semibold text-gray-800">
                         Select Your City
                     </h2>
+                </div>
+
+                <div className="mb-5 relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <input
+                        type="text"
+                        placeholder="Search for cities..."
+                        className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
                 </div>
 
                 <div className="mb-5 flex justify-center">
@@ -90,7 +119,7 @@ export const CityDialog = ({ isOpen, onClose, onSelect }) => {
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    {cities.map((city) => (
+                    {filteredCities.map((city) => (
                         <button
                             key={city.name}
                             onClick={() => {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Menu, X, ChevronDown, Search, MapPin } from "lucide-react";
+import { Menu, X, ChevronDown, Search, MapPin, Sun, Moon } from "lucide-react";
 import { CityDialog } from "./CityDialog";
 
-export const Navbar = () => {
+export const Navbar = ({ isDarkMode, toggleTheme }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [cityDialogOpen, setCityDialogOpen] = useState(false);
     const [selectedCity, setSelectedCity] = useState("");
@@ -74,6 +74,25 @@ export const Navbar = () => {
                     </div>
 
                     <div className="flex items-center gap-4">
+                        {/* Theme Toggle Switch */}
+                        <button
+                            onClick={toggleTheme}
+                            className={`relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${isDarkMode ? 'bg-red-500' : 'bg-gray-200'}`}
+                        >
+                            <span className="sr-only">Toggle theme</span>
+                            <span
+                                aria-hidden="true"
+                                className={`pointer-events-none absolute h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200 ${isDarkMode ? 'translate-x-5' : 'translate-x-0'} flex items-center justify-center`}
+                            >
+                                {isDarkMode ? (
+                                    <Moon className="h-3 w-3 text-red-500" />
+                                ) : (
+                                    <Sun className="h-3 w-3 text-gray-800" />
+                                )}
+                            </span>
+                        </button>
+
+                        {/* City Selector */}
                         <div
                             onClick={() => setCityDialogOpen(true)}
                             className="hidden md:flex items-center justify-center text-white text-sm cursor-pointer hover:underline w-36"
