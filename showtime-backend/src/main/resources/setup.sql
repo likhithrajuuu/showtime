@@ -18,9 +18,44 @@ CREATE TABLE showtime.booked_seats (booking_seat_id SERIAL PRIMARY KEY, booking_
 
 -- Alter commands
 alter table showtime.users add column role varchar(50) not null;
-
+ALTER TABLE showtime.movies ADD COLUMN release_date TIMESTAMP NULL, ADD COLUMN genre VARCHAR(255) NULL, ADD COLUMN language VARCHAR(255) NULL, ADD COLUMN format VARCHAR(255) NULL;
 
 -- Insertion commands
+INSERT INTO showtime.movies (
+    title, certificate, duration, rating, description,
+    poster_url, trailer_url, release_date, genre, language,
+    format, is_active, created_at, updated_at
+) VALUES
+      (
+          'Inception', 'UA', 148, 8.8, 'A mind-bending thriller about dreams within dreams.',
+          'https://example.com/poster/inception.jpg','https://youtube.com/inception-trailer',
+          '2010-07-16 00:00:00', 'Sci-Fi', 'English', 'IMAX 2D', TRUE,
+          NOW(), NOW()
+      ),
+      (
+          'KGF Chapter 2', 'UA', 168, 8.5, 'A high-octane action drama following Rocky’s rise.',
+          'https://example.com/poster/kgf2.jpg','https://youtube.com/kgf2-trailer',
+          '2022-04-14 00:00:00', 'Action', 'Kannada', 'IMAX 2D', TRUE,
+          NOW(), NOW()
+      ),
+      (
+          'Titanic', 'U', 195, 7.9, 'A romantic tragedy set aboard the ill-fated Titanic.',
+          'https://example.com/poster/titanic.jpg','https://youtube.com/titanic-trailer',
+          '1997-12-19 00:00:00', 'Romantic', 'English', '2D', TRUE,
+          NOW(), NOW()
+      ),
+      (
+          '3 Idiots', 'U', 170, 8.4, 'A comedy-drama exploring friendship and education pressure.',
+          'https://example.com/poster/3idiots.jpg','https://youtube.com/3idiots-trailer',
+          '2009-12-25 00:00:00', 'Comedy', 'Hindi', '2D', TRUE,
+          NOW(), NOW()
+      ),
+      (
+          'Avengers: Endgame', 'UA', 181, 8.4, 'The epic finale of the Avengers saga.',
+          'https://example.com/poster/endgame.jpg','https://youtube.com/endgame-trailer',
+          '2019-04-26 00:00:00', 'Action', 'English', 'IMAX 3D', TRUE,
+          NOW(), NOW()
+      );
 
 
 

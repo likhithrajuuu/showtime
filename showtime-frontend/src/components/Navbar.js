@@ -164,7 +164,7 @@ export const Navbar = ({ isDarkMode, toggleTheme }) => {
                         <a href="/" className="hover:text-textLight">Standup</a>
                         <a href="/" className="hover:text-textLight">Activities</a>
                         <div className="border-t border-gray-200 my-2"></div>
-                        <a href="/" className="hover:text-textLight">ListYourShow</a>
+                        <a href="/" className="hover:text-textLight">List Your Show</a>
                         <a href="/" className="hover:text-textLight">Corporates</a>
                         <a href="/" className="hover:text-textLight">Offers</a>
                         <a href="/" className="hover:text-textLight">Gift Cards</a>
@@ -185,7 +185,7 @@ export const Navbar = ({ isDarkMode, toggleTheme }) => {
                         <a href="/activities" className="hover:text-textLight">Activities</a>
                     </div>
                     <div className="flex gap-6">
-                        <a href="/list-your-show" className="hover:text-textLight">ListYourShow</a>
+                        <a href="/list-your-show" className="hover:text-textLight">List Your Show</a>
                         <a href="/corporates" className="hover:text-textLight">Corporates</a>
                         <a href="/offers" className="hover:text-textLight">Offers</a>
                         <a href="/giftcards" className="hover:text-textLight">Gift Cards</a>

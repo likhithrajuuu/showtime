@@ -39,6 +39,18 @@ public class MoviesModel {
     @Column(name = "trailer_url")
     private String trailerUrl;
 
+    @Column(name="release_date")
+    private LocalDateTime releaseDate;
+
+    @Column(name="genre")
+    private String genre;
+
+    @Column(name="language")
+    private String language;
+
+    @Column(name="format")
+    private String format;
+
     @Column(name="is_active")
     private Boolean isActive;
 
