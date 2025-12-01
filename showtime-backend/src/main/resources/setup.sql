@@ -16,4 +16,12 @@ CREATE TABLE showtime.users (user_id SERIAL PRIMARY KEY, name VARCHAR(255), emai
 CREATE TABLE showtime.bookings (booking_id SERIAL PRIMARY KEY, user_id INT REFERENCES showtime.users(user_id), show_id INT REFERENCES showtime.shows(show_id), booking_time TIMESTAMP DEFAULT NOW(), total_amount DECIMAL(10,2), status VARCHAR(20));
 CREATE TABLE showtime.booked_seats (booking_seat_id SERIAL PRIMARY KEY, booking_id INT REFERENCES showtime.bookings(booking_id) ON DELETE CASCADE, seat_layout_id INT REFERENCES showtime.seat_layout(seat_layout_id));
 
+-- Alter commands
+alter table showtime.users add column role varchar(50) not null;
+
+
 -- Insertion commands
+
+
+
+

@@ -8,15 +8,22 @@ import jakarta.validation.ConstraintViolation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import jakarta.validation.Validator;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 
-public class MoviesService {
+public class MoviesService implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Autowired
     private MoviesRepository moviesRepository;
 
@@ -58,6 +65,8 @@ public class MoviesService {
         }
     }
 
+
+    //Get all the movies
     public List<MoviesModel> getAllMovies() throws CrudOperationException{
         try{
             return moviesRepository.findAll();
@@ -66,12 +75,15 @@ public class MoviesService {
         }
     }
 
+    //Add a new movie
     public MoviesModel addMovie(MoviesModel movie) throws CrudOperationException{
         checkForNull(movie);
         validate(movie);
         return saveMovie(movie);
     }
 
+    //Get a movie by id
+    @Cacheable(value = "movies", key = "#id")
     public MoviesModel getMovieById(Long id) throws CrudOperationException{
         checkId(id);
         MoviesModel movie = moviesRepository.findById(id).orElse(null);
@@ -81,4 +93,39 @@ public class MoviesService {
         }
         return movie;
     }
+
+    //Update a movie
+    public MoviesModel updateMovie(MoviesModel movie) throws CrudOperationException{
+        checkForNull(movie);
+        validate(movie);
+        return saveMovie(movie);
+    }
+
+    //Delete a movie
+    public void deleteMovie(Long id) throws CrudOperationException{
+        checkId(id);
+        moviesRepository.deleteById(id);
+    }
+
+    //Update a movie by id
+    public Optional<MoviesModel> updateMovie(Long id, MoviesModel updated) throws CrudOperationException{
+        return moviesRepository.findById(id).map(existing -> {
+            existing.setTitle(updated.getTitle());
+            existing.setCertificate(updated.getCertificate());
+            existing.setDuration(updated.getDuration());
+            existing.setRating(updated.getRating());
+            existing.setDescription(updated.getDescription());
+            existing.setPosterUrl(updated.getPosterUrl());
+            existing.setTrailerUrl(updated.getTrailerUrl());
+            existing.setIsActive(updated.getIsActive());
+            existing.setUpdatedAt(LocalDateTime.now());
+            return moviesRepository.save(existing);
+        });
+    }
+
+    public List<MoviesModel> getTopRatedMovies(){
+        return moviesRepository.findTop10ByOrderByRatingDesc();
+    }
+
+    
 }

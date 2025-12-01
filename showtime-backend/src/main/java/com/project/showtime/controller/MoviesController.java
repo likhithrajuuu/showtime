@@ -79,4 +79,23 @@ public class MoviesController {
         }
     }
 
+    @GetMapping("/top-rated")
+    public ResponseEntity<?> getTopRatedMovies(){
+        try{
+            List<MoviesModel> movies = moviesService.getTopRatedMovies();
+            return ResponseEntity.status(HttpStatus.OK).body(movies);
+        }catch(CrudOperationException e){
+            log.info("Exception while getting top rated movies: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+        catch(CrudValidationException e){
+            log.info("Exception while getting top rated movies: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        catch(Exception e){
+            log.info("Exception while getting top rated movies: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 }

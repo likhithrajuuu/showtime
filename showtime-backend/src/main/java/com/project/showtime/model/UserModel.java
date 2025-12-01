@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.project.showtime.enums.Role;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,6 +41,10 @@ public class UserModel {
 
     @Column(name = "updated_at", insertable = false, updatable = false)
     private LocalDateTime updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", length = 50, nullable = false)
+    private Role role = Role.USER;
 
     // One user can have many bookings
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
