@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronUp, ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMovies } from "../redux/actions/moviesActions";
 
@@ -163,7 +163,7 @@ export const MoviesPage = ({ location, setCityDialogOpen }) => {
             {loading ? (
               <p>Loading movies...</p>
             ) : error ? (
-              <p className="text-red-500">Error: {error}</p>
+              <p className="text-red-500">Error: {typeof error === 'object' ? (error.error || JSON.stringify(error)) : error}</p>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {filteredMovies.map((movie) => (
