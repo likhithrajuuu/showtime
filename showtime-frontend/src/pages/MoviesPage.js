@@ -48,11 +48,9 @@ export const MoviesPage = ({ location, setCityDialogOpen }) => {
   return (
     <div className="bg-gray-100 dark:bg-bgDark min-h-screen py-8 px-6">
       <div className="container mx-auto flex gap-8">
-        {/* Filters Sidebar */}
         <aside className="w-1/4">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-textLight mb-6">Filters</h2>
 
-          {/* Language Filter */}
           <div className="bg-white dark:bg-footerBg rounded-lg shadow mb-4">
             <div className="flex justify-between items-center px-4 py-3">
               <div className="flex items-center gap-2 cursor-pointer" onClick={() => setShowLanguages(!showLanguages)}>
@@ -84,7 +82,6 @@ export const MoviesPage = ({ location, setCityDialogOpen }) => {
             )}
           </div>
 
-          {/* Genres Filter */}
           <div className="bg-white dark:bg-footerBg rounded-lg shadow mb-4">
             <div className="flex justify-between items-center px-4 py-3">
               <div className="flex items-center gap-2 cursor-pointer" onClick={() => setShowGenres(!showGenres)}>
@@ -116,7 +113,6 @@ export const MoviesPage = ({ location, setCityDialogOpen }) => {
             )}
           </div>
 
-          {/* Format Filter */}
           <div className="bg-white dark:bg-footerBg rounded-lg shadow mb-4">
             <div className="flex justify-between items-center px-4 py-3">
               <div className="flex items-center gap-2 cursor-pointer" onClick={() => setShowFormats(!showFormats)}>
@@ -147,7 +143,6 @@ export const MoviesPage = ({ location, setCityDialogOpen }) => {
               </div>
             )}
           </div>
-          {/* Browse by Cinemas Button */}
           <button 
             onClick={() => setCityDialogOpen(true)}
             className="w-full bg-transparent text-primary py-3 rounded-lg border border-primary hover:bg-primary hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
@@ -156,7 +151,6 @@ export const MoviesPage = ({ location, setCityDialogOpen }) => {
           </button>
         </aside>
 
-        {/* Main Content */}
         <main className="w-3/4">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Movies in {location}</h2>
 
@@ -167,12 +161,10 @@ export const MoviesPage = ({ location, setCityDialogOpen }) => {
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {filteredMovies.map((movie) => (
-                  <div key={movie.movieId} className="bg-white dark:bg-footerBg shadow-md rounded-lg overflow-hidden relative cursor-pointer transform transition-transform duration-300 hover:scale-105">
+                  <div key={movie.movieId} className="bg-white dark:bg-footerBg shadow-md rounded-lg overflow-hidden relative cursor-pointer">
                     <div className="relative">
                       <img src={movie.posterUrl} alt={movie.title} className="w-full h-64 object-cover rounded-t-lg" />
-                      {/* Overlay for rating and votes */}
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4 text-white">
-                        {/* Check if movie.rating and movie.votes exist before rendering */}
                         {movie.rating && movie.votes && (
                           <p className="text-base font-semibold flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-yellow-400 mr-1">
@@ -181,7 +173,6 @@ export const MoviesPage = ({ location, setCityDialogOpen }) => {
                             {movie.rating}/10 {movie.votes} Votes
                           </p>
                         )}
-                        {/* If only likes are available (like Dhurandhar in the image) */}
                         {movie.likes && !movie.rating && !movie.votes && (
                           <p className="text-base font-semibold flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-green-400 mr-1">
