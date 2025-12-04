@@ -9,6 +9,7 @@ import jakarta.validation.Validator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ import java.util.Set;
 @Service
 public class MoviesService implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+
 
     @Autowired
     private MoviesRepository moviesRepository;
@@ -86,12 +87,14 @@ public class MoviesService implements Serializable {
         return movie;
     }
 
+    @CacheEvict(value = "movies", key = "#movie.id")
     public MoviesModel updateMovie(MoviesModel movie) throws CrudOperationException {
         checkForNull(movie);
         validate(movie);
         return saveMovie(movie);
     }
 
+    @CacheEvict(value = "movies", key = "#id")
     public void deleteMovie(Long id) throws CrudOperationException {
         checkId(id);
         moviesRepository.deleteById(id);
@@ -112,6 +115,7 @@ public class MoviesService implements Serializable {
         });
     }
 
+    @Cacheable(value = "top-rated-movies")
     public List<MoviesModel> getTopRatedMovies() {
         return moviesRepository.findTop10ByOrderByRatingDesc();
     }
