@@ -48,7 +48,7 @@ class MoviesControllerTest {
     @Test
     void testGetAllMoviesCrudException() throws Exception {
         when(moviesService.getAllMovies())
-                .thenThrow(new CrudOperationException( "DB error"));
+                .thenThrow(new Exception("DB error"));
 
         ResponseEntity<?> response = moviesController.getAllMovies();
 
@@ -121,7 +121,7 @@ class MoviesControllerTest {
     @Test
     void testGetMovieByIdException() throws Exception {
         when(moviesService.getMovieById(1L))
-                .thenThrow(new CrudOperationException("Not found"));
+                .thenThrow(new Exception("Not found"));
 
         ResponseEntity<?> response = moviesController.getMovieById(1L);
 
@@ -193,7 +193,7 @@ class MoviesControllerTest {
     @Test
     void testFilterMoviesException() throws Exception {
         when(moviesService.filterByAll(null, null, null))
-                .thenThrow(new CrudOperationException("Invalid filter"));
+                .thenThrow(new Exception("Invalid filter"));
 
         ResponseEntity<?> response = moviesController.filterMovies(null, null, null);
 
